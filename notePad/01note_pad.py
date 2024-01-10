@@ -17,7 +17,7 @@ def openfile():
         win.title("FilePath: " + os.path.basename(filename) + " | Path: " + filename)
         text1.delete(1.0, tk.END)
         f = open(filename, 'r', encoding='utf-8')
-        text1.insert(1.0, f.read())
+        text1.insert(1.0, f.read()) # 带括号的函数会在运行时立即执行
         f.close()
 def save():
     global filename
@@ -56,25 +56,25 @@ def redo():
 def undo():
     text1.edit_undo()
 def selectAll():
-    text1.tag_add('sel','1.0','end')
+    text1.tag_add('sel', '1.0', 'end')
 def setFont():
     def saveClose():
         text1.config(font=(var1.get(), var2.get()))
         fontWin.destroy()
     def close():
         fontWin.destroy()
-    fontWin = Toplevel(win)
+    fontWin = tk.Toplevel(win)
     fontWin.resizable(False, False)
-    fontWin.geometry("280x60")
+    fontWin.geometry("280x60+200+200")
     fontWin.title("字体设置")
     list1 = ["黑体", "隶书", "宋体", "微软雅黑"]
     Label(fontWin, text="字体：").grid(row=0, column=0, pady=3, padx=3)
-    var1 = StringVar()
+    var1 = tk.StringVar()
     Combobox(fontWin, values=list1, textvariable=var1, width=8).grid(row=0, column=1, pady=3, padx=3)
     # list2 = [10, 11, 12, 13, 14, 15, 16, 17]
     list2 = [i for i in range(10, 18)]
     Label(fontWin, text="大小：").grid(row=0, column=2, pady=3, padx=3)
-    var2 = IntVar()
+    var2 = tk.IntVar()
     Combobox(fontWin, values=list2, textvariable=var2, width=8).grid(row=0, column=3, pady=3, padx=3)
     Button(fontWin, text="确认", command=saveClose).grid(row=1, column=0, columnspan=2)
     Button(fontWin, text="取消", command=close).grid(row=1, column=3, columnspan=2)
@@ -103,10 +103,16 @@ def find():
             text1.tag_add("all", w1, w1 + "+" + str(len(var1)) + "c")
             text1.tag_config("all", background="red")
             w1 = text1.search(var1, w1 + "+" + str(len(var1)) + "c", "end")
-    fontWin = Toplevel(win)
+    def on_toplevel_close():
+        fontWin.destroy()
+        text1.tag_remove("all", "0.1", "end")
+    fontWin = tk.Toplevel(win)
     fontWin.resizable(False, False)
     fontWin.geometry("280x60")
     fontWin.title("查找")
+
+    # fontWin.protocol("WM_DELETE_WINDOW", on_toplevel_close)
+
     Label(fontWin, text="查找内容").grid(row=0, column=0, pady=3, padx=3)
     context = tk.Entry(fontWin, width=16)
     context.grid(row=0, column=1, pady=3, padx=3)
@@ -152,9 +158,9 @@ def replace():
     def closerep():
         text1.tag_remove("all", '1.0', 'end')
         fontWin.destroy()
-    fontWin = Toplevel(win)
+    fontWin = tk.Toplevel(win)
     fontWin.resizable(False, False)
-    fontWin.geometry("280x120")
+    fontWin.geometry("280x120+200+200")
     fontWin.title("查找")
     Label(fontWin, text="查找内容").grid(row=0, column=0, pady=3, padx=3)
     context = tk.Entry(fontWin, width=16)
@@ -167,8 +173,15 @@ def replace():
     Button(fontWin, text="查找下一个", command=replacenext).grid(row=2, column=3, sticky='e', padx=40)
     Button(fontWin, text="取消", command=closerep).grid(row=3, column=3, sticky='e', padx=40)
 
+def bigger():
+    text1.config(font=(text1.cget("font").split(" ")[0], int(text1.cget("font").split(" ")[1]) + 1))
+def smaller():
+    text1.config(font=(text1.cget("font").split(" ")[0], int(text1.cget("font").split(" ")[1]) - 1))
+def newLine():
+    text1.insert("end", "\n")
+
 win = tk.Tk()
-win.geometry('600x600')
+win.geometry('900x600')
 menu1 = tk.Menu(win)  # 创建
 menu1_1_2 = tk.Menu(menu1, tearoff=False)  # 第一个文件的二级菜单
 menu1_1_3 = tk.Menu(menu1, tearoff=False)
@@ -187,12 +200,13 @@ for i in range(len(list1)):
     elif list1[i] == "另存为":
         menu1_1_2.add_command(label=list1[i], accelerator=list2[i], command=saveas)
     elif list1[i] == "新建":
-        menu1_1_2.add_command(label=list1[i], accelerator=list2[i], command=lambda:new(1))
+        menu1_1_2.add_command(label=list1[i], accelerator=list2[i], command=lambda: new(1))
+        menu1_1_2.add_separator()
     else:
         menu1_1_2.add_command(label=list1[i], accelerator=list2[i])
 
-list1 = ["复制", "粘贴", "剪切", "重做", "撤回", "查找", '全选', '字体', '替换']
-list2 = ["Ctrl+Z", "Ctrl+X", "Ctrl+C", "", "", "Ctrl+F", '', '', '']
+list1 = ["复制", "粘贴", "剪切", "撤回", "重做", "查找", '全选', '字体', '替换']
+list2 = ["Ctrl+C", "Ctrl+V", "Ctrl+X", "Ctrl+Z", "", "Ctrl+F", '', '', '']
 for i in range(len(list1)):
     if list1[i] == "复制":
         menu1_1_3.add_command(label=list1[i], accelerator=list2[i], command=copy)
@@ -202,6 +216,7 @@ for i in range(len(list1)):
         menu1_1_3.add_command(label=list1[i], accelerator=list2[i], command=cut)
     elif list1[i] == "重做":
         menu1_1_3.add_command(label=list1[i], accelerator=list2[i], command=redo)
+        menu1_1_3.add_separator()
     elif list1[i] == "撤回":
         menu1_1_3.add_command(label=list1[i], accelerator=list2[i], command=undo)
     elif list1[i] == "查找":
@@ -215,13 +230,22 @@ for i in range(len(list1)):
         menu1_1_3.add_command(label=list1[i], accelerator=list2[i], command=setFont)
     # if list1[i] == "复制":
     #     menu1_1_3.add_command(label=list1[i], accelerator=list2[i], command=copy)
-    else: menu1_1_3.add_command(label=list1[i], accelerator=list2[i])
+    else:
+        menu1_1_3.add_command(label=list1[i], accelerator=list2[i])
 
-list1 = ["放大", "状态", "换行"]
+list1 = ["放大", "缩小", "换行"]
+list2 = ["Ctrl+Shift++", "Ctrl+Shift+-", ""]
 for i in range(len(list1)):
-    menu1_1_4.add_command(label=list1[i])
+    if list1[i] == "放大":
+        menu1_1_4.add_command(label=list1[i], accelerator=list2[i], command=bigger)
+    elif list1[i] == "缩小":
+        menu1_1_4.add_command(label=list1[i], accelerator=list2[i], command=smaller)
+    elif list1[i] == "换行":
+        menu1_1_4.add_command(label=list1[i], accelerator=list2[i], command=newLine)
+    else:
+        menu1_1_4.add_command(label=list1[i], accelerator=list2[i])
 
-text1 = tk.Text(win, undo=True)
+text1 = tk.Text(win, undo=True, font=("微软雅黑", 13))
 text1.pack(fill=tk.BOTH, expand=tk.YES, side='left')
 scroll = tk.Scrollbar(win) # 这个要展开才有，它有最小宽度
 scroll.pack(fill=tk.Y, side='left')
@@ -229,8 +253,11 @@ scroll.configure(command=text1.yview)
 text1.configure(yscrollcommand=scroll.set)
 
 win.bind('<Control-n>', new)
+win.bind("<Control-Shift-+>", lambda x: bigger())
+win.bind("<Control-Shift-_>", lambda x: smaller())
 # win.bind('<Control-o>', openfile)
 
 win.configure(menu=menu1)  # 显示
 win.mainloop()
+
 
