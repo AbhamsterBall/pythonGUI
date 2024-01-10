@@ -1,0 +1,191 @@
+*{
+    /*font-family: "Microsoft YaHei";*/
+    /*margin:0px;*/
+    /*padding: 0px;*/
+    border-radius: 20px;
+}
+body{
+    background-color: #dddddd;
+}
+table{
+    border-radius: 0px;
+    border: 2px solid black;
+    border-collapse: collapse;
+    margin: 0px;
+    width: 100%;
+}
+th{
+    text-align: left;
+    border-radius: 0px;
+    border: 1.5px solid black
+}
+td{
+    border-radius: 0px;
+    border: 1.5px solid black
+}
+.main-list{
+    border-radius: 0px 0px 20px 20px; text-align: center; color: #444444;
+    height: 600px !important;
+    line-height: 80px !important;
+}
+.main-title{
+    font-family: "Microsoft YaHei";
+    border-radius: 0px 0px 20px 20px;
+    text-align: center;
+    height: 150px;
+    background-color: #4472C4;
+    font-size: 30px;
+    vertical-align: center;
+    color: white;
+    line-height: 150px;
+}
+.index-title{
+    height: 100%;
+}
+.text{
+    font-family: "Microsoft YaHei";
+    /*margin-top: 50px;*/
+    padding: 3%;
+    background-color: white;
+    width: 70%;
+    border: solid 2px white;
+    height: auto;
+    position: relative;
+    left: 12%;
+    color: #333333;
+    line-height: 30px;
+}
+.preText{
+    font-family: "Microsoft YaHei";
+}
+pre {
+    white-space: -moz-pre-wrap; /* Mozilla, supported since 1999 */
+    white-space: -pre-wrap; /* Opera */
+    white-space: -o-pre-wrap; /* Opera */
+    white-space: pre-wrap; /* CSS3 - Text module (Candidate Recommendation) http://www.w3.org/TR/css3-text/#white-space */
+    word-wrap: break-word; /* IE 5.5+ */
+}
+.code{
+    /*white-space: pre;*/
+    /*font-family: 'Courier New', monospace; !* 使用等宽字体 *!*/
+    padding: 5%;
+    background-color: #eee;
+    width: 66%;
+    border: solid 2px #eee;
+    position: relative;
+    left: 12%;
+    color: #333333;
+    font-weight: 100;
+    margin-bottom: -4px;
+
+    font-family: Consolas,"courier new";
+    /*background-color: #f1f1f1;*/
+    /*height: 800px;*/
+    /*padding: 10px;*/
+    /*border: 1px solid #ccc;*/
+    white-space: pre-wrap; /* 保留换行符 */
+    /*overflow: hidden;*/
+    resize: none;
+    transition: .6s;
+}
+.codeNonClose{
+    /*white-space: pre;*/
+    /*font-family: 'Courier New', monospace; !* 使用等宽字体 *!*/
+    padding: 5%;
+    background-color: #eee;
+    width: 66%;
+    border: solid 2px #eee;
+    position: relative;
+    left: 12%;
+    color: #333333;
+    font-weight: 100;
+    margin-bottom: -4px;
+
+    font-family: Consolas,"courier new";
+    /*background-color: #f1f1f1;*/
+    /*height: 800px;*/
+    /*padding: 10px;*/
+    /*border: 1px solid #ccc;*/
+    white-space: pre-wrap; /* 保留换行符 */
+    /*overflow: hidden;*/
+    resize: none;
+    transition: .6s;
+}
+.mainHref{
+    display: inline-block;
+    border-radius: 0px;
+    padding-top: 4%;
+    padding-bottom: 4%;
+    text-align: center;
+    height: 38px;
+    width: 100%;
+    line-height: 38px;
+    text-decoration: none;
+    transition: .6s;
+    color: #333333;
+}
+
+.mainHref:hover{
+    background-color: #4472C4;
+    color: white;
+}
+a{
+    text-decoration: none;
+    transition: .6s;
+    color: #4472C4;
+
+    white-space: -moz-pre-wrap; /* Mozilla, supported since 1999 */
+    white-space: -pre-wrap; /* Opera */
+    white-space: -o-pre-wrap; /* Opera */
+    white-space: pre-wrap; /* CSS3 - Text module (Candidate Recommendation) http://www.w3.org/TR/css3-text/#white-space */
+    word-wrap: break-word; /* IE 5.5+ */
+}
+a:hover{
+    color: #10387e;
+}
+
+/*滚动条框设置*/
+textarea::-webkit-scrollbar{
+    width: 2px;
+    background-color: rgb(225, 225, 225);
+    opacity: 0%;
+    border-radius: 20px;
+    display: none;
+}
+/*滚动条设置*/
+textarea::-webkit-scrollbar-thumb{
+    /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);*/
+    background-color: #c2c2c2;
+    display: none;
+    border-radius: 20px;
+}
+.expand{
+    color: white; font-size: 15px;
+    line-height: 30px;
+}
+.expand:hover{
+    color: #bfc1d2;
+}
+img{
+    width: 100%;
+}
+.hljs{
+    border-radius: 6px;
+    font-family: "Microsoft YaHei";
+}
+.simi-mark{
+    border-radius: 6px;
+    background-color: #f1f1f1;
+    padding: 1em;
+}
+.markdown{
+
+}
+h1,h2,h3,h4,h5{
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+
+
+
