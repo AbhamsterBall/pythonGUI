@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="main.css" rel="stylesheet"/>
+    <script src="marked.min.js"></script>
+    <!--    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/darkula.min.css">-->
+    <script src="highlight.min.js"></script>
+    <link href="hljs.css" rel="stylesheet">
+    <meta property="og:title" content="mybatis逆向工程">
+    <script>
+        hljs.initHighlightingOnLoad();
+    </script>
+    <meta name="viewport" content="width=device-width,user-scalable=yes,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
+</head>
+<body>
+<div class="main-title">BY HYH <a href="#" onclick="hideAll()" class="expand">代码全部收起</a></div>
+<div class="text"  style="border-radius: 0px 0px 20px 20px;">
+    <h3 style="margin-top:-15px">leetcode 2312</h3>
+    <mark class="markdown preText">
+图片参考：https://leetcode.cn/problems/selling-pieces-of-wood/solutions/2689164/javapython3cdong-tai-gui-hua-mei-ju-mei-l9bl8/  
+代码参考：https://leetcode.cn/problems/selling-pieces-of-wood/solutions/1611240/by-endlesscheng-mrmd/
+#### 思路
+> 1.从第一步开始推导：切第一刀的最大结果值可能为 1.本身就有x * y的价格 2.横切一刀后最大的价格 3.竖切一刀最大的价格
+> 2.通过累加，从小到大计算出最大结果值。
+```python
+# 记忆化搜索：使用备忘录避免重复计算来跳过重叠子问题的计算方式
+class Solution:
+    def sellingWood(self, m: int, n: int, prices: List[List[int]]) -> int:
+        pr = {(x - 1, y - 1): p for x, y, p in prices}
+        print(pr)
+        f = [[0] * n for _ in range(m)]
+        for i in range(m):  # 从小到大计算出最大解，录入f数组（备忘录）
+            for j in range(n):
+                f[i][j] = max(pr.get((i, j), 0), max((f[k][j] + f[i - 1 - k][j] for k in range(math.ceil((i - 1) / 2) + 1)), default=0),
+                              max((f[i][q] + f[i][j - 1 - q] for q in range(math.ceil((j - 1) / 2) + 1)), default=0))
+        return f[m - 1][n - 1]
+```
+    </mark>
+</div>
+
+<script src="jquery.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

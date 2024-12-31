@@ -24,7 +24,7 @@ import jieba
 USE_CUDA = torch.cuda.is_available()  # 该内容是对CPU和GPU进行选择
 device = torch.device("cuda" if USE_CUDA else "cpu")
 
-parent_name = "F:\\HUAXINBeforeJob\\python_projects\\Natural_Language_Processing_with_Transformers\\1212\\NLPwithPytorch"
+parent_name = "F:\\Users\AJH41\\AppData\Local\\Programs\\Python\\Python37\\pythonGUI\\python_projects\\Natural_Language_Processing_with_Transformers\\1212\\NLPwithPytorch"
 
 
 def printLines(file, n=10000):

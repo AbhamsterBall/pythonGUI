@@ -57,7 +57,7 @@ def countData(data):
 
 if __name__ == '__main__':
     # 读取 Excel 文件
-    df = pd.read_excel('F:\\HUAXINBeforeJob\\python_projects\\pandas\\pandas.xlsx')
+    df = pd.read_excel('F:\\Users\\AJH41\\AppData\\Local\\Programs\\Python\\Python37\\pythonGUI\\python_projects\\pandas\\pandas.xlsx')
 
     titles = df.columns.tolist()
 
