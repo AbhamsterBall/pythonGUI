@@ -25,3 +25,6 @@ hs_err_pid*
 .idea/
 *.tar
 *.txt
+
+# auth
+./python_projects/hampster-work/twilAuth.py
